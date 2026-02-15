@@ -1,0 +1,125 @@
+import type { Chapter } from '../../../types';
+
+export const CHAPTER_9_OBJECT_ORIENTED: Chapter = {
+  id: 'ch9',
+  title: '9. Object-Oriented ABAP',
+  lessons: [
+    {
+        id: 'l8-1',
+        title: 'Principles of OOP',
+        duration: 15,
+        details: {
+            tCode: 'N/A',
+            sproPath: 'N/A',
+            definition: 'Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects", which can contain data (in the form of fields, known as attributes or properties) and code (in the form of procedures, known as methods).',
+            purpose: 'To structure software in a way that is more manageable, reusable, and scalable. The core principles are Encapsulation, Inheritance, and Polymorphism.',
+            configurationSteps: [
+                ' - <b>Encapsulation:</b> Bundling data (attributes) and the methods that operate on that data into a single unit (a class).',
+                ' - <b>Inheritance:</b> Allowing a new class (subclass) to inherit the attributes and methods of an existing class (superclass).',
+                ' - <b>Polymorphism:</b> Allowing objects of different classes to be treated as objects of a common superclass.',
+            ],
+            integrationNotes: 'ABAP supports a fully object-oriented programming model.',
+            updatesS4HANA: 'Object-Oriented ABAP is the standard for almost all new SAP development and is the foundation for modern frameworks like the ABAP RESTful Application Programming Model (RAP).',
+        },
+    },
+    {
+        id: 'l8-2',
+        title: 'Classes and Objects',
+        duration: 20,
+        details: {
+            tCode: 'SE24 (Global), SE38 (Local)',
+            sproPath: 'N/A',
+            definition: 'A Class is a blueprint for creating objects. It defines a set of attributes (data) and methods (behavior). An Object is a specific instance of a class.',
+            purpose: 'Classes provide the structure, and objects are the working instances that you use in your program. You can have a class `LCL_CAR`, and then create multiple objects (instances) of that class: `go_my_car`, `go_your_car`, etc.',
+            configurationSteps: [
+                '<b>Definition:</b>',
+                '`CLASS lcl_vehicle DEFINITION.`',
+                '`  PUBLIC SECTION.`',
+                '`    METHODS: accelerate.`',
+                '`  PRIVATE SECTION.`',
+                '`    DATA: mv_speed TYPE i.`',
+                '`ENDCLASS.`',
+                '<br/>',
+                '<b>Implementation:</b>',
+                '`CLASS lcl_vehicle IMPLEMENTATION.`',
+                '`  METHOD accelerate.`',
+                '`    mv_speed = mv_speed + 10.`',
+                '`  ENDMETHOD.`',
+                '`ENDCLASS.`',
+            ],
+            integrationNotes: 'Classes can be local (defined within a program) or global (defined in SE24 and reusable across the system).',
+            updatesS4HANA: 'Using classes is the standard approach for structuring application logic.',
+        },
+    },
+    {
+        id: 'l8-3',
+        title: 'Methods and Attributes',
+        duration: 15,
+        details: {
+            tCode: 'SE24 / SE38',
+            sproPath: 'N/A',
+            definition: 'Attributes are the data variables within a class. Methods are the procedures or functions within a class that operate on that data.',
+            purpose: 'Attributes store the state of an object (e.g., current speed, color). Methods define the behavior of an object (e.g., `accelerate`, `brake`).',
+            configurationSteps: [
+                'Visibility sections control access:',
+                ' - <b>PUBLIC SECTION:</b> Can be accessed from outside the class.',
+                ' - <b>PROTECTED SECTION:</b> Can be accessed by the class itself and its subclasses.',
+                ' - <b>PRIVATE SECTION:</b> Can only be accessed by the class itself (encapsulation).',
+            ],
+            integrationNotes: 'It is a best practice to keep attributes private and provide public methods (getters/setters) to access or change their values, which is a key part of encapsulation.',
+            updatesS4HANA: 'This is a fundamental OOP concept and is unchanged.',
+        },
+    },
+    {
+        id: 'l8-4',
+        title: 'Inheritance',
+        duration: 20,
+        details: {
+            tCode: 'SE24 / SE38',
+            sproPath: 'N/A',
+            definition: 'Inheritance is a mechanism where a new class (subclass or child class) derives its properties and behaviors from an existing class (superclass or parent class).',
+            purpose: 'To promote code reuse and create a logical hierarchy. For example, you can have a general `CL_VEHICLE` class and then create subclasses `CL_CAR` and `CL_TRUCK` that inherit the common properties of a vehicle but also add their own specific attributes and methods.',
+            configurationSteps: [
+                '`CLASS lcl_car DEFINITION INHERITING FROM lcl_vehicle.`',
+                '`  PUBLIC SECTION.`',
+                '`    METHODS: open_trunk.`',
+                '`ENDCLASS.`',
+                'The `lcl_car` class now automatically has the `accelerate` method from `lcl_vehicle` plus its own new `open_trunk` method.',
+            ],
+            integrationNotes: 'A subclass can "redefine" (override) a method from its superclass to provide a specialized implementation.',
+            updatesS4HANA: 'Inheritance is a key feature of object-oriented ABAP and is used extensively in standard SAP frameworks.',
+        },
+    },
+    {
+        id: 'l8-5',
+        title: 'Interfaces',
+        duration: 15,
+        details: {
+            tCode: 'SE24',
+            sproPath: 'N/A',
+            definition: 'An Interface is a collection of method definitions without any implementation. It defines a contract. Any class that "implements" the interface must provide an implementation for all of the interface\'s methods.',
+            purpose: 'To achieve polymorphism and decouple components. It allows different classes that may not be related through inheritance to be treated in a uniform way. For example, you can have an `IF_SERIALIZABLE` interface. Both a `CL_SALES_ORDER` class and a `CL_MATERIAL` class could implement this interface, and you could then write a generic program that can serialize any object that implements `IF_SERIALIZABLE`.',
+            configurationSteps: [
+                '`CLASS lcl_sales_order IMPLEMENTATION.`',
+                '`  INTERFACES if_serializable.`',
+                '`  METHOD if_serializable~serialize.`',
+                '`    " ... implementation code ...`',
+                '`  ENDMETHOD.`',
+                '`ENDCLASS.`',
+            ],
+            integrationNotes: 'Interfaces are heavily used in BAdIs and many modern SAP frameworks.',
+            updatesS4HANA: 'Interfaces are a critical component of modern, loosely coupled application design in ABAP.',
+        },
+    },
+  ],
+  quiz: {
+    id: 'abap-q9',
+    title: 'Object-Oriented ABAP Quiz',
+    questions: [
+      { question: 'What is a "class" in OOP?', options: ['A specific working instance', 'A blueprint for creating objects', 'A type of variable'], correctAnswer: 1 },
+      { question: 'Bundling data and methods together and hiding the internal details is known as what?', options: ['Inheritance', 'Polymorphism', 'Encapsulation'], correctAnswer: 2 },
+      { question: 'Which visibility section makes methods and attributes accessible only within the class itself?', options: ['PUBLIC', 'PROTECTED', 'PRIVATE'], correctAnswer: 2 },
+      { question: 'What OOP concept allows a class to use the properties and methods of another class?', options: ['Inheritance', 'Interface', 'Encapsulation'], correctAnswer: 0 },
+    ]
+  }
+};
